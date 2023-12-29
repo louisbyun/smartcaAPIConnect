@@ -30,3 +30,17 @@ Application Execution:
 
 The script runs the Flask application in debug mode when executed directly.
 Overall, this code provides a foundation for building a web application that allows users to log in with Smartcar and view a dashboard with vehicle information. The actual vehicle information retrieval logic needs to be implemented in the get_vehicle_info function, utilizing the Smartcar API.
+
+SHA-256 encryption part has been added.
+
+import hashlib
+
+def sha256_hash(data):
+     return hashlib.sha256(data.encode()).hexdigest()
+
+# Example Usage in a Route
+@app.route('/some_route')
+def some_route():
+     user_data = 'example_user_data'
+     hashed_data = sha256_hash(user_data)
+     # Use hashed_data for storing or comparing purposes
