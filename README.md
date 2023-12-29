@@ -38,9 +38,9 @@ import hashlib
 def sha256_hash(data):
      return hashlib.sha256(data.encode()).hexdigest()
 
-# Example Usage in a Route
-@app.route('/some_route')
-def some_route():
-     user_data = 'example_user_data'
-     hashed_data = sha256_hash(user_data)
+# Example Usage in a Route<br/>
+@app.route('/some_route')<br/>
+def some_route():<br/>
+     user_data = 'example_user_data'<br/>
+     hashed_data = sha256_hash(user_data)<br/>
      # Use hashed_data for storing or comparing purposes
