@@ -1,8 +1,9 @@
 from flask import Flask, render_template, redirect, url_for, session, request
 import smartcar
+import hashlib
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key'  # Arbitrary secret key for session management
+app.secret_key = 'your_secret_key'
 
 # Smartcar API configuration
 client_id = 'YOUR_SMARTCAR_CLIENT_ID'
@@ -10,10 +11,18 @@ client_secret = 'YOUR_SMARTCAR_CLIENT_SECRET'
 redirect_uri = 'YOUR_REDIRECT_URI'
 smartcar_access_token = None
 
+# SHA-256 encryption function
+def sha256_encrypt(input_value):
+    return hashlib.sha256(input_value.encode()).hexdigest()
+
+# Encrypt client_id and client_secret
+encrypted_client_id = sha256_encrypt(client_id)
+encrypted_client_secret = sha256_encrypt(client_secret)
+
 # Create an instance of Smartcar API client
 client = smartcar.AuthClient(
-    client_id=client_id,
-    client_secret=client_secret,
+    client_id=encrypted_client_id,
+    client_secret=encrypted_client_secret,
     redirect_uri=redirect_uri,
     test_mode=True  # Use test mode (set to False in production)
 )
@@ -49,7 +58,6 @@ def dashboard():
 
 def get_vehicle_info(access_token):
     # Add code here to retrieve vehicle information using Smartcar API
-    # For example, call the /vehicle endpoint in Smartcar API to get vehicle details
     pass
 
 if __name__ == '__main__':
